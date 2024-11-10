@@ -1,210 +1,376 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" href="/images/favicon-enhanced.png" />
-  <link rel="stylesheet" href="css/login.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login page</title>
+    <style>
+        /* Animated Wave Background Style  */
+html, body {
+    width: 100%;
+    height: 100%;
+}
+body {
+    background:radial-gradient(ellipse at center, rgba(255,254,234,1) 0%, rgba(255,254,234,1) 35%, #B7E8EB 100%);
+    overflow: hidden;
+}
 
-  <style>
-    /* Custom CSS for alert messages */
-    .alert {
-      display: none;
-      position: fixed;
-      top: 10%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      padding: 20px;
-      background-color: #4caf50;
-      color: white;
-      text-align: center;
-      border-radius: 6px;
-      box-shadow: 0px 0px 10px 0px #262626;
-      opacity: 0.8;
-      transition: all 0.3s ease-in-out;
-      z-index: 1;
-    }
+.ocean {
+    height: 5%;
+    width:100%;
+    position:absolute;
+    bottom:0;
+    left:0;
+    background: #015871;
+}
 
-    #emptyFieldsAlert {
-      background-color: red;
+.wave {
+    background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/85486/wave.svg) repeat-x;
+    position: absolute;
+    top: -198px;
+    width: 6400px;
+    height: 198px;
+    animation: wave 5s cubic-bezier( 0.36, 0.45, 0.63, 0.53) infinite;
+    transform: translate3d(0, 0, 0);
+}
+
+.wave:nth-of-type(2) {
+    top: -175px;
+    animation: wave 7s cubic-bezier( 0.36, 0.45, 0.63, 0.53) -.125s infinite, swell 7s ease -1.25s infinite;
+    opacity: 1;
+}
+
+@keyframes wave {
+    0% {
+        margin-left: 0;
     }
-    
-    input[type="password"]::-webkit-credentials-auto-fill-button,
-    input[type="password"]::-webkit-contacts-auto-fill-button,
-    input[type="password"]::-ms-reveal {
-        display: none;
-      }
-  </style>
-  <title>Sukoon - Login</title>
+    100% {
+        margin-left: -1600px;
+    }
+}
+
+@keyframes swell {
+    0%, 100% {
+        transform: translate3d(0,-25px,0);
+    }
+    50% {
+        transform: translate3d(0,5px,0);
+    }
+}
+
+/* Login Section Style */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: -20px 0 50px;
+    margin-top: 20px;
+}
+
+h1 {
+    font-weight: bold;
+    margin: 0;
+}
+
+p {
+    font-size: 14px;
+    font-weight: 100;
+    line-height: 20px;
+    letter-spacing: .5px;
+    margin: 20px 0 30px;
+}
+
+span {
+    font-size: 12px;
+}
+
+a {
+    color: #0e263d;
+    font-size: 14px;
+    text-decoration: none;
+    margin: 15px 0;
+}
+
+.container {
+    background: #fff;
+    border-radius: 90px;
+    box-shadow: 30px 14px 28px rgba(0, 0, 5, .2), 0 10px 10px rgba(0, 0, 0, .2);
+    position: relative;
+    overflow: hidden;
+    opacity: 85%;
+    width: 768px;
+    max-width: 100%;
+    min-height: 480px;
+    transition: 333ms;
+}
+
+
+.form-container form {
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    padding:  0 50px;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.social-container {
+    margin: 20px 0;
+    display: block;
+}
+
+
+.social-container a {
+    border: 1px solid #008ecf;
+    border-radius: 50%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+    height: 40px;
+    width: 40px;
+    transition: 333ms;
+}
+.social-container a:hover {
+    transform: rotateZ(13deg);
+    border: 1px solid #0e263d;
+}
+
+.form-container input {
+    background: #eee;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 15px;
+    margin: 8px 0;
+    width: 100%;
+}
+.form-container input:hover {
+    transform: scale(101%);
+}
+
+button {
+    border-radius: 50px;
+    box-shadow: 0 1px 1px ;
+    border: 1px solid #008ecf;
+    background: #008ecf;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+}
+
+button:active {
+    transform: scale(.95);
+}
+
+button:focus {
+    outline: none;
+}
+
+button.ghost {
+    background: transparent;
+    border-color: #fff;
+}
+
+.form-container {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    transition: all .6s ease-in-out;
+}
+
+.sign-in-container {
+    left: 0;
+    width: 50%;
+    z-index: 2;
+}
+
+.sign-up-container {
+    left: 0;
+    width: 50%;
+    z-index: 1;
+    opacity: 0;
+}
+
+.overlay-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: transform .6s ease-in-out;
+    z-index: 100;
+}
+
+.overlay {
+    background: #ff416c;
+    background: linear-gradient(to right, #008ecf, #008ecf) no-repeat 0 0 / cover;
+    color: #fff;
+    position: relative;
+    left: -100%;
+    height: 100%;
+    width: 200%;
+    transform: translateY(0);
+    transition: transform .6s ease-in-out;
+}
+
+.overlay-panel {
+    position: absolute;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 40px;
+    height: 100%;
+    width: 50%;
+    text-align: center;
+    transform: translateY(0);
+    transition: transform .6s ease-in-out;
+}
+
+.overlay-right {
+    right: 0;
+    transform: translateY(0);
+}
+
+.overlay-left {
+    transform: translateY(-20%);
+}
+
+/* Move signin to right */
+.container.right-panel-active .sign-in-container {
+    transform: translateY(100%);
+}
+
+/* Move overlay to left */
+.container.right-panel-active .overlay-container {
+    transform: translateX(-100%);
+}
+
+/* Bring signup over signin */
+.container.right-panel-active .sign-up-container {
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+}
+
+/* Move overlay back to right */
+.container.right-panel-active .overlay {
+    transform: translateX(50%);
+}
+
+/* Bring back the text to center */
+.container.right-panel-active .overlay-left {
+    transform: translateY(0);
+}
+
+/* Same effect for right */
+.container.right-panel-active .overlay-right {
+    transform: translateY(20%);
+}
+
+/* https://Github.com/YasinDehfuli
+	 https://Codepen.io/YasinDehfuli */
+    </style>
 </head>
-  <body onload="myfunction()">
-    <div id="load">
-      <div
-        style="
-          background-color: white;
-          height: 25vh;
-          width: 100%;
-          position: relative;
-          top: -70px;
-        "></div>
-  </div>
 
-  <div class="alert" id="emptyFieldsAlert" style="display: none">
-    Please fill in all fields!
-  </div>
-  <img src="../images/signupill.png" alt="" />
-  <div class="login">
-    <div class="welcome">
-      <h1 class="titletext">Welcome Back &#x1F917</h1>
-      <span>Please enter your details.</span>
+<body>
+    <!-- Animated Wave Background  -->
+    <div class="ocean">
+        <div class="wave"></div>
+        <div class="wave"></div>
     </div>
-    <div class="inputs">
-      <span>Email<br /></span>
-      <input class="inputbox" placeholder="Enter your email" id="loginEmail" /><br />
-      <span>Password<br /></span>
-      <input type="password" class="inputbox" placeholder="••••••••" id="loginPassword" />
-      <i class="fas fa-eye-slash" id="toggleLoginPassword" style="margin-left: -30px; cursor: pointer;"></i>
-    </div>
-    <div class="forgotpass">
-      <span>Forgot Password</span>
-    </div>
-    <p class="back"><a class="tag" href="../index.html">&#8592; Back</a></p>
-    <div class="button">
-      <input type="button" class="signin" value="Sign in" id="loginButton" />
-    </div>
-    <div class="signupline">
-      <span>Don't have an account?</span>
-      <span class="signupbutton"> Sign up</span>
-    </div>
-  </div>
-  <div class="register">
-    <div class="welcome">
-      <h1 class="titletext">Create an account</h1>
-      <span>Let's get started.</span>
-    </div>
-    <div class="inputs">
-      <span>Username<br /></span>
-      <input class="inputbox" placeholder="Enter your username" id="signupUsername" /><br />
-      <span>Email<br /></span>
-      <input class="inputbox" placeholder="Enter your email" id="signupEmail" /><br />
-      <span>Password<br /></span>
-      <input type="password" class="inputbox" placeholder="••••••••" id="signupPassword" />
-      <i class="fas fa-eye-slash" id="toggleSignupPassword" style="margin-left: -30px; cursor: pointer;"></i>
-    </div>
-    <p class="back-1"><a class="tag1" href="../index.html">&#8592; Back</a></p>
-    <div class="button">
-      <input type="button" class="signin" value="Sign up" id="signupButton" />
-    </div>
-    <div class="signupline">
-      <span>Already have an account?</span>
-      <span class="signinbutton"> Sign in</span>
-    </div>
-  </div>
+    <!-- Log In Form Section -->
+    <section>
+        <div class="container" id="container">
+            <div class="form-container sign-up-container">
+                <form action="#">
+                    <h1>Sign Up</h1>
+                    <div class="social-container">
+                        <a href="https://Github.com/YasinDehfuli" target="_blank" class="social"><i class="fab fa-github"></i></a>
+                        <a href="https://Codepen.io/YasinDehfuli" target="_blank" class="social"><i class="fab fa-codepen"></i></a>
+                        <a href="mailto:Ydehfuli@gmail.com" target="_blank" class="social"><i class="fab fa-google"></i></a>
+                    </div>
+                    <span>Or use your Email for registration</span>
+                    <label>
+                        <input type="text" placeholder="Name"/>
+                    </label>
+                    <label>
+                        <input type="email" placeholder="Email"/>
+                    </label>
+                    <label>
+                        <input type="password" placeholder="Password"/>
+                    </label>
+                    <button style="margin-top: 9px">Sign Up</button>
+                </form>
+            </div>
+            <div class="form-container sign-in-container">
+                <form action="#">
+                    <h1>Sign in</h1>
+                    <div class="social-container">
+                        <a href="https://Github.com/YasinDehfuli" target="_blank" class="social"><i class="fab fa-github"></i></a>
+                        <a href="https://Codepen.io/YasinDehfuli" target="_blank" class="social"><i class="fab fa-codepen"></i></a>
+                        <a href="mailto:Ydehfuli@gmail.com" target="_blank" class="social"><i class="fab fa-google"></i></a>
+                    </div>
+                    <span> Or sign in using E-Mail Address</span>
+                    <label>
+                        <input type="email" placeholder="Email"/>
+                    </label>
+                    <label>
+                        <input type="password" placeholder="Password"/>
+                    </label>
+                    <a href="#">Forgot your password?</a>
+                    <button>Sign In</button>
+                </form>
+            </div>
+            <div class="overlay-container">
+                <div class="overlay">
+                    <div class="overlay-panel overlay-left">
+                        <h1>Log in</h1>
+                        <p>Sign in here if you already have an account </p>
+                        <button class="ghost mt-5" id="signIn">Sign In</button>
+                    </div>
+                    <div class="overlay-panel overlay-right">
+                        <h1>Create, Account!</h1>
+                        <p>Sign up if you still don't have an account ... </p>
+                        <button class="ghost" id="signUp">Sign Up</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        const signUpButton = document.getElementById('signUp');
+const signInButton = document.getElementById('signIn');
+const container = document.getElementById('container');
 
-  <!-- Alert messages -->
-  <div class="alert" id="loginAlert">Sign in successful!</div>
-  <div class="alert" id="signupAlert">Sign up successful!</div>
+signUpButton.addEventListener('click', () =>
+    container.classList.add('right-panel-active'));
 
-  <script>
-    const signin_btn = document.querySelector(".signinbutton");
-    const signup_btn = document.querySelector(".signupbutton");
-    const register = document.querySelector(".register");
-    const login = document.querySelector(".login");
-    signup_btn.addEventListener("click", () => {
-      register.style.display = "block";
-      login.style.display = "none";
-    });
-    signin_btn.addEventListener("click", () => {
-      register.style.display = "none";
-      login.style.display = "block";
-    });
-    loginButton.addEventListener("click", () => {
-      const emailInput = document.getElementById("loginEmail");
-      const passwordInput = document.getElementById("loginPassword");
-      const loginAlert = document.getElementById("loginAlert");
-      if (emailInput.value.trim() === "" || passwordInput.value.trim() === "") {
-        const emptyFieldsAlert = document.getElementById("emptyFieldsAlert");
-        emptyFieldsAlert.style.display = "block";
-        setTimeout(() => {
-          emptyFieldsAlert.style.display = "none";
-        }, 3000);
-      } else {
-        emailInput.value = ""; // Clear email input
-        passwordInput.value = ""; // Clear password input
+signInButton.addEventListener('click', () =>
+    container.classList.remove('right-panel-active'));
 
-        loginAlert.style.display = "block";
-        setTimeout(() => {
-          loginAlert.style.display = "none";
-        }, 3000);
-      }
-    });
+// https://Github.com/YasinDehfuli
+// 	 https://Codepen.io/YasinDehfuli
+// Disigned By Nisay
+    </script>
+    </body>
+    </html>
 
-    signupButton.addEventListener("click", () => {
-      const usernameInput = document.getElementById("signupUsername");
-      const emailInput = document.getElementById("signupEmail");
-      const passwordInput = document.getElementById("signupPassword");
-      const signupAlert = document.getElementById("signupAlert");
-
-      if (
-        usernameInput.value.trim() === "" ||
-        emailInput.value.trim() === "" ||
-        passwordInput.value.trim() === ""
-      ) {
-        const emptyFieldsAlert = document.getElementById("emptyFieldsAlert");
-        emptyFieldsAlert.style.display = "block";
-        setTimeout(() => {
-          emptyFieldsAlert.style.display = "none";
-        }, 3000);
-      } else {
-        usernameInput.value = ""; // Clear username input
-        emailInput.value = ""; // Clear email input
-        passwordInput.value = ""; // Clear password input
-
-        signupAlert.style.display = "block";
-        setTimeout(() => {
-          signupAlert.style.display = "none";
-        }, 3000);
-      }
-    });
-
-  </script>
-  <script>
-    const preloader = document.getElementById("load");
-    function myfunction() {
-      preloader.style.display = "none";
-    }
-    const toggleLoginPassword = document.querySelector("#toggleLoginPassword");
-    const loginPassword = document.getElementById("loginPassword");
-
-    toggleLoginPassword.addEventListener("click", function (e) {
-
-      if(loginPassword.type == "text"){
-        loginPassword.type = "password";
-        toggleLoginPassword.className = "fas fa-eye-slash";
-      }
-      else if(loginPassword.type == "password"){
-        loginPassword.type = "text";
-        toggleLoginPassword.className = "fas fa-eye";
-      }
-    });
-
-    const toggleSignupPassword = document.querySelector("#toggleSignupPassword");
-    const signupPassword = document.getElementById("signupPassword");
-
-    toggleSignupPassword.addEventListener("click", function (e) {
-
-      if(signupPassword.type == "text"){
-        signupPassword.type = "password";
-        toggleSignupPassword.className = "fas fa-eye-slash";
-      }
-      else if(signupPassword.type == "password"){
-        signupPassword.type = "text";
-        toggleSignupPassword.className = "fas fa-eye";
-      }
-    });
-  </script>
-
-</body>
-</html>
+    <!-- https://Github.com/YasinDehfuli
+         https://Codepen.io/YasinDehfuli
+         -->
